@@ -1,0 +1,268 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Contrato de uso de API de Optica Merida, el contrato contiene la información de todos los endpoints implementados, ademas de una descripción detallada de estos, y los parametros necesarios para realizar las peticiones.\n[http://swagger.io](http://swagger.io) or on \n[irc.freenode.net, #swagger](http://swagger.io/irc/).\n",
+    "version": "1.0.0",
+    "title": "Optica Merida"
+  },
+  "tags": [
+    {
+      "name": "Product",
+      "description": "Productos de la Óptica Merida (lentes)."
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/products": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Todos los elementos de la tienda",
+        "description": "Devuelve todos los ementos de la tienda con su respectiva descripción",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Obtención satisfactoria de todos los productos",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/product/{id}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Producto detallado",
+        "operationId": "Obtener información detallada de un único producto",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id del producto que se desea consultar",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "product": {
+                  "$ref": "#/definitions/Product"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "El producto no existe"
+          }
+        }
+      }
+    },
+    "/api/product/buy": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Comprar producto",
+        "description": "Permite hacer la compra de uno o varios productos que sean enviados por parametro",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "order placed for purchasing the pet",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ProductPurchase"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "compra satisfactoria",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Product"
+                  }
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "El producto no existe, o no hay la cantidad requerida"
+          }
+        }
+      }
+    },
+    "/api/product/items": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Obtención de items especificos",
+        "operationId": "Obtención de productos especificos, con su información detallada",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "order placed for purchasing the pet",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid Order"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ProductCart": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Id del producto a comprar"
+        }
+      }
+    },
+    "ProductPurchase": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Id del producto a comprar"
+        },
+        "amount": {
+          "type": "integer",
+          "description": "Cantidad de productos de la compra"
+        }
+      }
+    },
+    "Image": {
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Url de image"
+        }
+      }
+    },
+    "Product": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Identificador único"
+        },
+        "cod": {
+          "type": "string",
+          "description": "Código de referencia"
+        },
+        "description": {
+          "type": "string",
+          "description": "Descripción detallada"
+        },
+        "brand": {
+          "type": "string",
+          "description": "Nombre de la marca"
+        },
+        "type": {
+          "type": "string",
+          "description": "Tipo de lente"
+        },
+        "price": {
+          "type": "integer",
+          "description": "Precio en dolares"
+        },
+        "discount": {
+          "type": "integer",
+          "description": "Porcentaje de descuento expresado en entero de 1 al 100"
+        },
+        "stock": {
+          "type": "integer",
+          "description": "Cantidad en stock"
+        },
+        "gender": {
+          "type": "string",
+          "description": "Género de pertenencia"
+        },
+        "subtype": {
+          "type": "string",
+          "description": "Subtipo de pertenencia"
+        },
+        "images": {
+          "type": "array",
+          "description": "Imagenes detalladas",
+          "items": {
+            "$ref": "#/definitions/Image"
+          }
+        },
+        "created_at": {
+          "type": "string",
+          "description": "Estampilla de tiempo de creación"
+        },
+        "update_at": {
+          "type": "string",
+          "description": "Estampilla de tiempo de modificación"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Informe proyecto",
+    "url": "http://notion.so"
+  }
+}

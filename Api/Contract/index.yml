@@ -1,0 +1,65 @@
+Obtener todos los productos
+---
+tags:
+  - products
+definitions:
+  - schema:
+        id: Image
+        properties:
+          url:
+            type: string
+            description: Url de image
+  - schema:
+      id: Product
+      properties:
+        id:
+          type: integer
+          description: Identificador único
+        cod:
+          type: string
+          description: Código de referencia
+        description:
+          type: string
+          description: Descripción detallada
+        brand:
+          type: string
+          description: Nombre de la marca
+        type:
+          type: string
+          description: Tipo de lente
+        price:
+          type: float
+          description: Precio en dolares
+        discount:
+          type: integer
+          description: Porcentaje de descuento expresado en entero de 1 al 100
+        stock:
+          type: integer
+          description: Cantidad en stock
+        gender:
+          type: string
+          description: Género de pertenencia
+        subtype:
+          type: string
+          description: Subtipo de pertenencia
+        images:
+          type: array
+          description: Imagenes detalladas
+          items:
+            $ref: "#/definitions/Image"
+        created_at:
+          type: string
+          description: Estampilla de tiempo de creación
+        update_at:
+          type: string
+          description: Estampilla de tiempo de modificación
+responses:
+  200:
+    description: "Obtención satisfactoria de todos los productos"
+    schema:
+      type: object
+      properties:
+        produtcs:
+          type: array
+          items:
+            $ref: "#/definitions/Product"
