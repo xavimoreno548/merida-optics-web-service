@@ -10,6 +10,7 @@ from Api.Controllers.ProductShowController import product_show
 from Api.Controllers.ProductPurchaseController import product_purchase
 from Api.Controllers.ShoppingCartController import shopping_cart
 from Api.Controllers.ContractController import contract
+from Api.Seeds.ProductSeeder import seeder_product
 
 app = Flask(__name__)
 
@@ -18,11 +19,12 @@ app.register_blueprint(product_show)
 app.register_blueprint(product_purchase)
 app.register_blueprint(shopping_cart)
 app.register_blueprint(contract)
+app.register_blueprint(seeder_product)
 
 
 @app.route('/', methods=['GET'])
 def index():
-    return make_response(jsonify({'optica_merida':'web_service'}), 200)
+    return make_response(jsonify({'project': 'Optica Merida Web Service'}), 200)
 
 
 if __name__ == "__main__":

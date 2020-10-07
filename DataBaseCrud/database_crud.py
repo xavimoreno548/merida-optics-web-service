@@ -76,5 +76,21 @@ class DataBaseCrud:
         img = []
         for i in image:
             img.append(i.url)
-        return {"id": product.id, "cod": product.cod, "description": product.description, "brand": product.brand, "type": product.type,
-                         "price": product.price, "stock": product.stock, "images": img}
+        return {"id": product.id, "cod": product.cod, "description": product.description, "brand": product.brand,
+                "type": product.type,
+                "price": product.price, "stock": product.stock, "images": img}
+
+    def add_products(self, product):
+        product_add = Product(cod=product['cod'], description=product['description'], brand=product['brand'],
+                              type=product['type'], price=product['price'], stock=product['stock'],
+                              discount=product['discount'], gender=product['gender'], subtype=product['subtype'],
+                              color=product['color'])
+        self.session.add(product_add)
+        self.session.commit()
+        for image in product['images']:
+            image_add = Image(url=image, product_id=product_add.id)
+            self.session.add(image_add)
+            self.session.commit()
+        return True
+
+
