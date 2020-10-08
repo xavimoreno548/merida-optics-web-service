@@ -38,3 +38,19 @@ De igual manera [Flask](https://flask.palletsprojects.com/en/1.1.x/) solo necesi
 ~~~
 $ pip install Flask
 ~~~
+
+## Dev Server.
+
+Para poner en marcha el servidor es necesario tener instaladas todas las dependencias, abrir una terminal y posicionarse en la raiz del proyecto, luego ejecutar los siguientes comandos.
+
+~~~
+$ cd Api
+~~~
+~~~
+$ flask run -h localhost
+~~~
+
+Esto levantará por defecto un servidor web en el puero 5000, si desea cambiar el puerto y el host, ingrese el siguiente comando, agregando en los elementos en corchetes los respectivos valores.
+
+~~~
+$ flask run -h [host] -p [port]
