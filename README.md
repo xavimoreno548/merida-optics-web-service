@@ -39,6 +39,10 @@ De igual manera [Flask](https://flask.palletsprojects.com/en/1.1.x/) solo necesi
 $ pip install Flask
 ~~~
 
+### Base de datos
+
+En el directorio /DataBaseCrud/Backup/ encontramos en script optica_merida_backup.sql, este puede ser ejecutado en un entorno mysql, ya sea a traves de un cliente grafico o en una terminal.
+
 ## Dev Server.
 
 Para poner en marcha el servidor es necesario tener instaladas todas las dependencias, abrir una terminal y posicionarse en la raiz del proyecto, luego ejecutar los siguientes comandos.
