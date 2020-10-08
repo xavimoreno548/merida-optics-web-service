@@ -9,7 +9,7 @@ from DataBaseCrud.database_crud import DataBaseCrud
 product_purchase = Blueprint('product_purchase', __name__)
 
 
-@product_purchase.route('/api/product/buy', methods=['POST'])
+@product_purchase.route('/api/products/buy', methods=['POST'])
 def buy_product():
     products = request.json['products']
     crud = DataBaseCrud()

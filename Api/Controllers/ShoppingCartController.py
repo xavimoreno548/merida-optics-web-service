@@ -9,7 +9,7 @@ from DataBaseCrud.database_crud import DataBaseCrud
 shopping_cart = Blueprint('shopping_cart', __name__)
 
 
-@shopping_cart.route('/api/product/items', methods=['GET'])
+@shopping_cart.route('/api/products/detail', methods=['POST'])
 def cart_items():
     products = request.json['products']
     crud = DataBaseCrud()
@@ -19,4 +19,4 @@ def cart_items():
         if not element:
             return make_response(jsonify({'error': 'product dont\' exist'}), 406)
         items.append(element)
-    return make_response(jsonify({'products': items}), 200)
+    return make_response(jsonify({'data':{'products': items}}), 200)

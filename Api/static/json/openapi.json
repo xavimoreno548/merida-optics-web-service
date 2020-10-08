@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Contrato de uso de API de Optica Merida, el contrato contiene la información de todos los endpoints implementados, ademas de una descripción detallada de estos, y los parametros necesarios para realizar las peticiones.\n[http://swagger.io](http://swagger.io) or on \n[irc.freenode.net, #swagger](http://swagger.io/irc/).\n",
+    "description": "Contrato de uso de API de Optica Merida, el contrato contiene la información de todos los endpoints implementados, ademas de una descripción detallada de estos, y los parametros necesarios para realizar las peticiones.\n",
     "version": "1.0.0",
     "title": "Optica Merida"
   },
@@ -29,10 +29,15 @@
             "schema": {
               "type": "object",
               "properties": {
-                "products": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/Product"
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Product"
+                      }
+                    }
                   }
                 }
               }
@@ -70,19 +75,27 @@
             "schema": {
               "type": "object",
               "properties": {
-                "product": {
-                  "$ref": "#/definitions/Product"
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "product": {
+                      "$ref": "#/definitions/Product"
+                    }
+                  }
                 }
               }
             }
           },
           "406": {
-            "description": "El producto no existe"
+            "description": "El producto no existe",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         }
       }
     },
-    "/api/product/buy": {
+    "/api/products/buy": {
       "post": {
         "tags": [
           "Product"
@@ -96,15 +109,20 @@
           {
             "in": "body",
             "name": "body",
-            "description": "order placed for purchasing the pet",
+            "description": "Identificadores de producto y número de elementos a comprar",
             "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "products": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/ProductPurchase"
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/ProductPurchase"
+                      }
+                    }
                   }
                 }
               }
@@ -115,25 +133,20 @@
           "200": {
             "description": "compra satisfactoria",
             "schema": {
-              "type": "object",
-              "properties": {
-                "products": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/Product"
-                  }
-                }
-              }
+              "$ref": "#/definitions/SuccessResponse"
             }
           },
           "406": {
-            "description": "El producto no existe, o no hay la cantidad requerida"
+            "description": "El producto no existe, o no hay la cantidad requerida",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         }
       }
     },
-    "/api/product/items": {
-      "get": {
+    "/api/products/detail": {
+      "post": {
         "tags": [
           "Product"
         ],
@@ -146,7 +159,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "order placed for purchasing the pet",
+            "description": "Identificadores de producto a consutar detalles",
             "required": true,
             "schema": {
               "type": "object",
@@ -163,24 +176,35 @@
         ],
         "responses": {
           "200": {
-            "description": "successful operation"
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Product"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
-          "400": {
-            "description": "Invalid Order"
+          "406": {
+            "description": "El producto no existe, o no se encontró",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         }
       }
     }
   },
   "definitions": {
-    "ProductCart": {
-      "properties": {
-        "id": {
-          "type": "integer",
-          "description": "Id del producto a comprar"
-        }
-      }
-    },
     "ProductPurchase": {
       "properties": {
         "id": {
@@ -188,7 +212,7 @@
           "description": "Id del producto a comprar"
         },
         "amount": {
-          "type": "integer",
+          "type": "string",
           "description": "Cantidad de productos de la compra"
         }
       }
@@ -259,10 +283,30 @@
           "description": "Estampilla de tiempo de modificación"
         }
       }
+    },
+    "SuccessResponse": {
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "status de respuesta"
+        },
+        "message": {
+          "type": "string",
+          "description": "mensaje de respuesta"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "properties": {
+        "error": {
+          "type": "string",
+          "description": "mensaje de error"
+        }
+      }
     }
   },
   "externalDocs": {
-    "description": "Informe proyecto",
-    "url": "http://notion.so"
+    "description": "Informe Proyecto",
+    "url": "https://www.notion.so/ptica-M-rida-E-Commerce-b9491445a2894ac08abcaf96811e756a"
   }
 }

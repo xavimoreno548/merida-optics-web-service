@@ -18,4 +18,4 @@ def index():
     """
     crud = DataBaseCrud()
     products = crud.get_all()
-    return make_response(jsonify({'products': products}), 200)
+    return make_response(jsonify({'data':{'products': products}}), 200)

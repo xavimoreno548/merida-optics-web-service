@@ -63,13 +63,14 @@ class DataBaseCrud:
         data = list()
         products = self.session.query(Product).all()
         images = self.session.query(Image).all()
-        for p in products:
+        for product in products:
             img = []
             for i in images:
-                if i.product_id == p.id:
+                if i.product_id == product.id:
                     img.append(i.url)
-            data.append({"id": p.id, "cod": p.cod, "description": p.description, "brand": p.brand, "type": p.type,
-                         "price": p.price, "stock": p.stock, "images": img})
+            data.append({"id": product.id, "cod": product.cod, "description": product.description, "brand": product.brand,
+                        "type": product.type,"price": product.price, "stock": product.stock, "discount": product.discount,
+                        "gender": product.gender, "subtype": product.subtype, "color": product.color, "images": img})
         return data
 
     def format(self, product: Product, image: Image):
@@ -77,8 +78,8 @@ class DataBaseCrud:
         for i in image:
             img.append(i.url)
         return {"id": product.id, "cod": product.cod, "description": product.description, "brand": product.brand,
-                "type": product.type,
-                "price": product.price, "stock": product.stock, "images": img}
+                "type": product.type,"price": product.price, "stock": product.stock, "discount": product.discount,
+                "gender": product.gender, "subtype": product.subtype, "color": product.color, "images": img}
 
     def add_products(self, product):
         product_add = Product(cod=product['cod'], description=product['description'], brand=product['brand'],

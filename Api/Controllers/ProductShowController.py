@@ -15,4 +15,4 @@ def show(id: int):
     product = crud.show(id)
     if not product:
         return make_response(jsonify({'error': 'El producto no existe'}), 406)
-    return make_response(jsonify({'product': product}), 200)
+    return make_response(jsonify({'data':{'product': product}}), 200)
